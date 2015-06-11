@@ -1,0 +1,53 @@
+{
+  "name": "panels-blocks",
+  "version": "0.1.0",
+  "description": "Blocks for panels",
+  "main": "index.js",
+  "scripts": {
+    "test": ".bin/test",
+    "prepublish": "if [ \"$NODE_ENV\" = production ]; then .bin/compile; fi",
+    "postpublish": "if [ \"$NODE_ENV\" = production  ]; then .bin/clean; fi",
+    "start": ".bin/start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UXtemple/panels-blocks.git"
+  },
+  "keywords": [
+    "blocks",
+    "panels",
+    "components",
+    "UXtemple"
+  ],
+  "author": "UXtemple <hi@uxtemple.com>",
+  "contributors": [
+    "Darío Javier Cravero <dario@uxtemple.com>",
+    "Tom Parandyk <tom@uxtemple.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UXtemple/panels-blocks/issues"
+  },
+  "homepage": "https://github.com/UXtemple/panels-blocks",
+  "devDependencies": {
+    "babel": "^5.5.6",
+    "babel-eslint": "^3.1.15",
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "envify": "^3.4.0",
+    "eslint": "^0.22.1",
+    "eslint-plugin-react": "^2.5.0",
+    "livereloadify": "^2.0.0",
+    "node-static": "^0.7.6",
+    "uglify-js": "^2.4.23",
+    "watchify": "^3.2.2"
+  },
+  "dependencies": {
+    "react": "^0.13.3"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
+}
