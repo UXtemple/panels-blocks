@@ -35,8 +35,7 @@ React.render(
 );
 
 window.Playground = {
-  PanelsBlocks,
-  React
+  PanelsBlocks
 };
 
 console.log('Welcome to panels-blocks playground.');
