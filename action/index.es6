@@ -8,17 +8,15 @@ export default class ActionBlock extends Component {
   }
 
   onClick(event) {
-    if (this.props.panels && this.props.panels.navigate) {
-      event.preventDefault();
-      this.props.panels.navigate(this.props.href);
-    }
+    event.preventDefault();
+    this.context.navigate(this.props.href);
   }
 
-  onMouseEnter(event) { this.setState({hover: true}) }
-  onMouseLeave(event) { this.setState({hover: false}) }
+  onMouseEnter() { this.setState({hover: true}) }
+  onMouseLeave() { this.setState({hover: false}) }
 
   render() {
-    const active = this.props.active || (this.props.panels && this.props.panels.nextUri() === this.props.href);
+    const active = this.props.active || this.context.isActive(this.props.href);
     const hover = this.state.hover;
     let style = {...baseStyle, ...this.props.style.base};
     if (active || hover) {
@@ -27,7 +25,8 @@ export default class ActionBlock extends Component {
 
     let children;
     if (this.props.children) {
-      children = Children.map(this.props.children, child => cloneElement(child, {active, hover}));
+      children = typeof this.props.children === 'string' ?
+        this.props.children : Children.map(this.props.children, child => cloneElement(child, {active, hover}));
     }
 
     return (
@@ -38,12 +37,9 @@ export default class ActionBlock extends Component {
     );
   }
 
-  static propTypes = {
-    active: PropTypes.bool,
-    href: PropTypes.string.isRequired,
-    panels: PropTypes.object,
-    style: PropTypes.object,
-    title: PropTypes.string
+  static contextTypes = {
+    isActive: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -52,5 +48,12 @@ export default class ActionBlock extends Component {
       base: {},
       active: {}
     }
+  }
+
+  static propTypes = {
+    active: PropTypes.bool,
+    href: PropTypes.string.isRequired,
+    style: PropTypes.object,
+    title: PropTypes.string
   }
 }

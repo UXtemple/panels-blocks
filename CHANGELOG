@@ -2,7 +2,10 @@
 
 ## [Unreleased][unreleased]
 
+## [0.2.0] - 2015-06-29
+### Changed
+- `Action` now uses child contexts which holds both: `navigate` and `isActive`.
+
 ## [0.1.0] - 2015-06-11
 ### Added
-
 - Separated `panels-blocks` from `panels-ui`.
