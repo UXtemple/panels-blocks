@@ -10,6 +10,10 @@ export default class ActionBlock extends Component {
   onClick(event) {
     event.preventDefault();
     this.context.navigate(this.props.href);
+
+    if (typeof this.props.onClick === 'function') {
+      this.props.onClick();
+    }
   }
 
   onMouseEnter() { this.setState({hover: true}) }
@@ -53,6 +57,7 @@ export default class ActionBlock extends Component {
   static propTypes = {
     active: PropTypes.bool,
     href: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
     style: PropTypes.object,
     title: PropTypes.string
   }

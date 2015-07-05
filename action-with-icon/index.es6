@@ -1,29 +1,33 @@
 import ActionBlock from '../action';
 import Icon from './icon';
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-export default class ActionWithIconBlock extends Component {
+export default class ActionWithIconBlock {
   render() {
     const { icon, style, ...props } = this.props;
+    const children = typeof this.props.children === 'string' ? <span>{children}</span> : this.props.children;
 
     return (
       <ActionBlock {...props} style={style.action}>
-        {this.props.children}
+        {children}
         <Icon style={style.icon} icon={icon} />
       </ActionBlock>
     );
   }
 
+  static contextTypes = {
+    isActive: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired
+  }
   static propTypes = {
     active: PropTypes.bool,
-    icon: PropTypes.element,
+    icon: PropTypes.func,
     href: PropTypes.string.isRequired,
-    panels: PropTypes.object,
+    onClick: PropTypes.func,
     style: PropTypes.shape({
       action: activeType,
       icon: activeType
-    }),
-    title: PropTypes.string
+    })
   }
 
   static defaultProps = {

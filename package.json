@@ -31,19 +31,24 @@
   "homepage": "https://github.com/UXtemple/panels-blocks",
   "devDependencies": {
     "babel": "^5.5.6",
+    "babel-core": "^5.6.15",
     "babel-eslint": "^3.1.15",
+    "babel-loader": "^5.3.1",
     "babelify": "^6.1.2",
     "browserify": "^10.2.4",
     "envify": "^3.4.0",
     "eslint": "^0.22.1",
     "eslint-plugin-react": "^2.5.0",
     "livereloadify": "^2.0.0",
+    "node-libs-browser": "^0.5.2",
     "node-static": "^0.7.6",
+    "react-dom": "^0.14.0-beta1",
     "uglify-js": "^2.4.23",
-    "watchify": "^3.2.2"
+    "watchify": "^3.2.2",
+    "webpack": "^1.10.1"
   },
   "dependencies": {
-    "react": "^0.13.3"
+    "react": "^0.14.0-beta1"
   },
   "browserify": {
     "transform": [

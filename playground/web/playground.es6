@@ -1,7 +1,8 @@
 import * as PanelsBlocks from '../../index';
-import React from 'react';
+import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 
-const { ActionBlock, ImageBlock, SubtitleBlock, TextBlock, TitleBlock } = PanelsBlocks;
+const { ActionBlock, ActionWithIconBlock, ImageBlock, SubtitleBlock, TextBlock, TitleBlock } = PanelsBlocks;
 const actionStyle = {
   base: {
     marginTop: 25,
@@ -15,22 +16,44 @@ const actionStyle = {
 }
 const SHEEP = 'http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg';
 
-let panel = (
-  <div style={{width: 360}}>
-    <TitleBlock title='Knock yourself out...' style={{marginTop: 50}} />
-    <SubtitleBlock subtitle='With some links...' style={{marginTop: 25}} />
-    <ActionBlock href='http://UXtemple.com' title='UXtemple' style={actionStyle} />
-    <ActionBlock href='http://usepanels.com' title='use panels' style={actionStyle} />
+class Icon {
+  render() {
+    return <ImageBlock src={SHEEP} style={{height: 30, width: 30}} />;
+  }
+}
 
-    <SubtitleBlock subtitle='Or some text and images...' style={{marginTop: 50}} />
-    <TextBlock style={{marginTop: 25}}>Use panels now :).</TextBlock>
-    <ImageBlock src={SHEEP} style={{marginTop: 25}} />
-    <TextBlock style={{marginTop: 25}}> Sheep not included. Unfortunately. :)</TextBlock>
-  </div>
-);
+class Panel {
+  static childContextTypes = {
+    isActive: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired
+  }
 
-React.render(
-  panel,
+  getChildContext() {
+    const isActive = () => console.log('isActive');
+    const navigate = () => console.log('navigate');
+    return { isActive, navigate };
+  }
+
+  render() {
+    return (
+      <div style={{width: 360}}>
+        <TitleBlock title='Knock yourself out...' style={{marginTop: 50}} />
+        <SubtitleBlock subtitle='With some links...' style={{marginTop: 25}} />
+        <ActionWithIconBlock href='http://UXtemple.com' icon={Icon} style={actionStyle}>stuff</ActionWithIconBlock>
+        <ActionBlock href='http://UXtemple.com' title='UXtemple' style={actionStyle} />
+        <ActionBlock href='http://usepanels.com' title='use panels' style={actionStyle} />
+
+        <SubtitleBlock subtitle='Or some text and images...' style={{marginTop: 50}} />
+        <TextBlock style={{marginTop: 25}}>Use panels now :).</TextBlock>
+        <ImageBlock src={SHEEP} style={{marginTop: 25}} />
+        <TextBlock style={{marginTop: 25}}> Sheep not included. Unfortunately. :)</TextBlock>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Panel />,
   document.getElementById('playground-container')
 );
 

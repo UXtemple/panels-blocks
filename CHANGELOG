@@ -1,6 +1,11 @@
 # Change log
 
 ## [Unreleased][unreleased]
+### Changed
+- Upgraded to `react@0.14.0-beta1`.
+
+### Fixed
+- Playground to include `ActionWithIconBlock` example.
 
 ## [0.2.0] - 2015-06-29
 ### Changed
