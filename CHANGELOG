@@ -1,7 +1,11 @@
 # Change log
 
 ## [Unreleased][unreleased]
+
+## [0.3.0] - 2015-07-13
 ### Changed
+- Using Radium for advanced CSS.
+- Flattened file structure.
 - Upgraded to `react@0.14.0-beta1`.
 
 ### Fixed

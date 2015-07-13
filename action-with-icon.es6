@@ -1,17 +1,19 @@
-import ActionBlock from '../action';
-import Icon from './icon';
+import Action from './action';
 import React, { PropTypes } from 'react';
 
-export default class ActionWithIconBlock {
+export default class ActionWithIcon {
   render() {
-    const { icon, style, ...props } = this.props;
-    const children = typeof this.props.children === 'string' ? <span>{children}</span> : this.props.children;
+    const { children, icon: Icon, style, ...props } = this.props;
 
     return (
-      <ActionBlock {...props} style={style.action}>
-        {children}
-        <Icon style={style.icon} icon={icon} />
-      </ActionBlock>
+      <Action {...props} style={style.action}>
+        {active => (
+          <span style={{flexDirection: 'row'}}>
+            {typeof children === 'function' ? children(active) : children}
+            <Icon {...style.icon[active ? 'active' : 'base']} />
+          </span>
+        )}
+      </Action>
     );
   }
 
@@ -27,7 +29,8 @@ export default class ActionWithIconBlock {
     style: PropTypes.shape({
       action: activeType,
       icon: activeType
-    })
+    }),
+    title: PropTypes.string
   }
 
   static defaultProps = {
