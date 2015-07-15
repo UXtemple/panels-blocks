@@ -1,6 +1,12 @@
 import Action from './action';
 import React, { PropTypes } from 'react';
 
+const innerStyle = {
+  alignItems: 'center',
+  flex: 1,
+  flexDirection: 'row'
+};
+
 export default class ActionWithIcon {
   render() {
     const { children, icon: Icon, style, ...props } = this.props;
@@ -8,7 +14,7 @@ export default class ActionWithIcon {
     return (
       <Action {...props} style={style.action}>
         {active => (
-          <span style={{flexDirection: 'row'}}>
+          <span style={[innerStyle, style.inner]}>
             {typeof children === 'function' ? children(active) : children}
             <Icon {...style.icon[active ? 'active' : 'base']} />
           </span>
@@ -28,7 +34,8 @@ export default class ActionWithIcon {
     onClick: PropTypes.func,
     style: PropTypes.shape({
       action: activeType,
-      icon: activeType
+      icon: activeType,
+      inner: PropTypes.object
     }),
     title: PropTypes.string
   }
@@ -42,7 +49,8 @@ export default class ActionWithIcon {
       icon: {
         active: {},
         base: {}
-      }
+      },
+      inner: {}
     }
   }
 }

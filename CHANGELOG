@@ -2,6 +2,13 @@
 
 ## [Unreleased][unreleased]
 
+## [0.3.1] - 2015-07-15
+### Fixed
+- Default inner wrapper's style in ActionWithIcon to have more sensible defaults.
+
+### Changed
+- Allow inner wrapper's style in ActionWithIcon to be configurable.
+
 ## [0.3.0] - 2015-07-13
 ### Changed
 - Using Radium for advanced CSS.
