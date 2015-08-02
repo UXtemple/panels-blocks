@@ -1,33 +1,61 @@
-import Radium from 'radium';
-import React, { Children, cloneElement, Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-@Radium
+function isFunction(fn) {
+  return typeof fn === 'function';
+}
+
 export default class Action extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hover: false
+    };
+  }
+
   onClick(event) {
     event.preventDefault();
     this.context.navigate(this.props.href);
 
-    if (typeof this.props.onClick === 'function') {
+    if (isFunction(this.props.onClick)) {
       this.props.onClick();
     }
   }
 
   render() {
-    const { active, href, title } = this.props;
-    const isActive = active || this.context.isActive(href);
+    const { activeStyle, children, hoverStyle, href, style, title } = this.props;
+    const { hover } = this.state;
+    const active = this.context.isActive(href);
 
-    const style = [{
+    let finalStyle = {
       flexDirection: 'row',
+      webkitBoxOrient: 'horizontal',
+      webkitBoxDirection: 'normal',
+      webkitFlexDirection: 'row',
+      msFlexDirection: 'row',
       textDecoration: 'none',
-      ':hover': this.props.style.active
-    }, this.props.style.base, isActive && this.props.style.active];
+      ...style
+    };
 
-    let children;
-    if (this.props.children) {
-      children = typeof this.props.children === 'function' ? this.props.children(isActive) : this.props.children;
+    if (active) {
+      finalStyle = {
+        ...finalStyle,
+        ...activeStyle
+      }
     }
 
-    return <a href={href} title={title} style={style} onClick={::this.onClick}>{children || title}</a>;
+    if (hover) {
+      finalStyle = {
+        ...finalStyle,
+        ...hoverStyle
+      }
+    }
+
+    const content = children ?
+      (isFunction(children) ? children(active, hover) : children) :
+      title;
+
+    return <a href={href} title={title} style={finalStyle} onClick={::this.onClick}>{content}</a>;
   }
 
   static contextTypes = {
@@ -36,15 +64,14 @@ export default class Action extends Component {
   }
 
   static defaultProps = {
-    active: false,
-    style: {
-      base: {},
-      active: {}
-    }
+    activeStyle: {},
+    hoverStyle: {},
+    style: {}
   }
 
   static propTypes = {
-    active: PropTypes.bool,
+    activeStyle: PropTypes.object,
+    hoverStyle: PropTypes.object,
     href: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     style: PropTypes.object,

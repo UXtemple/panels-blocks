@@ -1,14 +1,15 @@
-import Radium from 'radium';
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-const style = {
-  maxWidth: '100%'
-};
-
-@Radium
-export default class Image extends Component {
+export default class Image {
   render() {
-    return <img src={this.props.src} style={[style, this.props.style]} />;
+    const { src, style } = this.props;
+
+    const finalStyle = {
+      maxWidth: '100%',
+      ...style
+    };
+
+    return <img src={src} style={finalStyle} />;
   }
 
   static propTypes = {

@@ -1,17 +1,18 @@
-import Radium from 'radium';
 import React, { PropTypes } from 'react';
 
-const style = {
-  fontSize: 16,
-  lineHeight: 1.65,
-  marginLeft: 50,
-  marginRight: 35
-}
-
-@Radium
 export default class TextBlock {
   render() {
-    return <p style={[style, this.props.style]}>{this.props.children || this.props.text}</p>;
+    const { children, text, style } = this.props;
+
+    const finalStyle = {
+      fontSize: 16,
+      lineHeight: 1.65,
+      marginLeft: 50,
+      marginRight: 35,
+      ...style
+    };
+
+    return <p style={finalStyle}>{children || text}</p>;
   }
 
   static propTypes = {

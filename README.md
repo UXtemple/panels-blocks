@@ -3,7 +3,6 @@
 Blocks for panels.
 
 - action
-- action with icon
 - image
 - title
 - text
